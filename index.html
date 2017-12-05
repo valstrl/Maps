@@ -35,7 +35,7 @@ var svg = d3.select("body").append("svg")
     .attr("height", height);
 
 
-topojson_path = "project/data/kantone.json";
+topojson_path = "topojson/kantone.json";
 d3.json(topojson_path, function(error, ch) {
   /*svg.append("path")
     .datum(topojson.feature(ch, ch.objects.country))
