@@ -48,6 +48,8 @@ d3.json(topojson_path, function(error, ch) {
     .datum(topojson.mesh(ch, ch.objects.municipalities, function(a, b) { return a !== b; }))
     .attr("class", "municipality-boundaries")
     .attr("d", path);*/
+    console.log(error)
+    console.log(ch)
 
   svg.append("path")
     .datum(topojson.mesh(ch, ch.objects.kantons, function(a, b) { return a !== b; }))
