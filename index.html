@@ -2,9 +2,7 @@
 <meta charset="utf-8">
 <style>
 
-.country {
-  fill: #222;
-}
+
 
 .canton-boundaries {
   fill: none;
@@ -12,11 +10,7 @@
   stroke-width: 1;
 }
 
-.municipality-boundaries {
-  fill: none;
-  stroke: #fff;
-  stroke-width: .3;
-}
+
 
 </style>
 <body>
@@ -29,7 +23,7 @@
 var width = 960,
     height = 500;
 
-var path = d3.geo.path()
+var path = d3.geoPath()
   .projection(null);
 
 var svg = d3.select("body").append("svg")
