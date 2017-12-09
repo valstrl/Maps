@@ -1,22 +1,42 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="js/jquery-2.0.0.js"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+  <div id="tooltip" class="hidden">
+        <div id="selection">
+        <p><span id="title">Laden...</span></p>
+        <p><span id="value">Lade Nutzerdaten</span></p>
+        </div>
+        <div>
+            <p><svg width="10px" height="10px">
+            <rect width="10" height="10" style="fill:#238b45" />
+            </svg> <span id="range3"></span></p>
+        </div>
+        <div>
+            <p><svg width="10px" height="10px">
+            <rect width="10" height="10" style="fill:#41ab5d" />
+            </svg> <span id="range2"></span></p>
+        </div>
+        <div>
+            <p><svg width="10px" height="10px">
+            <rect width="10" height="10" style="fill:#74c476" />
+            </svg> <span id="range1"></span></p>
+        </div>
+        <div>
+            <p><svg width="10px" height="10px">
+            <rect width="10" height="10" style="fill:#a1d99b" />
+            </svg> <span id="range0"></span></p>
+        </div>
 
-
-
-.canton-boundaries {
-  fill: none;
-  stroke:#222;
-  stroke-width: 1;
-}
-
-
-
-</style>
-<body>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<!--<script src="http://d3js.org/topojson.v1.min.js"></script>-->
-<script src="lib/d3.js"></script>
-<script src="lib/topojson.js"></script>
-<script src="lib/d3-geo.js"></script>
-<script> src="src/map.js"</script>
+</div>
+    <div id="map"></div>
+      <div style="font-size:10px; font-style:sans-serif">Quelle: «Bundesamt für Statistik (BFS), GEOSTAT» <a href="http://www.bfs.admin.ch/bfs/portal/de/index/dienstleistungen/geostat/datenbeschreibung/generalisierte_gemeindegrenzen.html" target="_blank">Generalisierte Gemeindegrenzen</a> 2014
+    <script src="lib/d3.v3.min.js"></script>
+    <script src="lib/topojson.v1.min.js"></script>
+    <script>src="src/map.js"</script>
+      </body>
+    </html>
