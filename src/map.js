@@ -205,7 +205,7 @@ function kanton_clicked_gemeinden(d) {
           return bezirk.properties.BZNR == gemeinde.properties.BZNR
         });
         console.log("[0]");
-        gemeinde_berzik=gemeinde_berzik[0];
+        gemeinde_bezirk=gemeinde_berzik[0];
         console.log(gemeinde_bezirk);
         //return gemeinde if its bezirk is part of kanton
         return gemeinde_bezirk.properties.KTNR == d.properties.KTNR
