@@ -92,7 +92,7 @@ var name;
     name = d.properties.GMDNAME;
   }
   d3.select("#title").text(name);
-  //d3.select("#value").text(value + " Besucher");
+  d3.select("#value").text(value + " Besucher");
 
 }
 
