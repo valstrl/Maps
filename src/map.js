@@ -134,7 +134,7 @@ function move_up() {
   }*/
   // modif valentine:
 
-  else if(kanton) {
+  if(kanton) {
     start_demo();// ??
     kanton = null;
         g.selectAll("#geimenden").remove();
