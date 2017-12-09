@@ -9,6 +9,9 @@ var width = 960,
 var projection = d3.geo.conicConformal()
   .scale(150)
   .translate([width / 2, height / 1.5]);
+  
+var path = d3.geo.path()
+  .projection(projection);
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
