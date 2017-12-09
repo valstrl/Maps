@@ -198,16 +198,19 @@ function kanton_clicked_gemeinden(d) {
 
       // find gemeinden contained in kanton d
       var contained_gemeinden = gemeinden.filter( function(gemeinde) {
+        console.log("gemeinde");
         console.log(gemeinde);
         // for each gemeinde find its bezirk
         var gemeinde_bezirk = bezirke.filter(function (bezirk){
           return bezirk.properties.BZNR == gemeinde.properties.BZNR
         });
+        console.log("[0]");
         console.log(gemeinde_bezirk[0])
+        console.log("[1]");
         console.log(gemeinde_bezirk[1])
 
         //return gemeinde if its bezirk is part of kanton
-        return gemeinde_bezirk[0].properties.KTNR == d.properties.KTNR
+        return gemeinde_bezirk[1].properties.KTNR == d.properties.KTNR
       });
 
             set_colordomain(contained_gemeinden);
