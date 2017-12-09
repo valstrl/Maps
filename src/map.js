@@ -209,9 +209,10 @@ function kanton_clicked_gemeinden(d) {
         console.log(gemeinde_bezirk);
         console.log(gemeinde_bezirk.properties);
         console.log(gemeinde_bezirk.properties.KTNR);
-
+        if(gemeinde_bezirk != undefined){
         //return gemeinde if its bezirk is part of kanton
         return gemeinde_bezirk.properties.KTNR == d.properties.KTNR
+        }
       });
 
             set_colordomain(contained_gemeinden);
