@@ -271,7 +271,7 @@ function start_demo() {
   .on("mouseover", update_info)
   .on("mouseout", highlight);
 
-  d3.json("json/start.json", function(error, json) {
+  d3.json("topojson/start.json", function(error, json) {
   start = get_xyz((json.features)[0]);
   zoom(start);
     g.selectAll("#bezirke", "#gemeinden").remove();
@@ -291,7 +291,7 @@ dataset = data;
 
         d3.select("#value").text("Lade Kantone");
 
-    d3.json("json/kantone.topo.json", function(error, json) {
+    d3.json("topojson/kantone.topo.json", function(error, json) {
         kantone = topojson.feature(json, json.objects.kantone).features;
 
       kantone.forEach(function(d) {
@@ -304,13 +304,13 @@ dataset = data;
       d3.select("#value").text("Lade Bezirke");
 
         //Lade Bezirke
-        d3.json("json/bezirke.topo.json", function(error, json) {
+        d3.json("topojson/bezirke.topo.json", function(error, json) {
             bezirke = topojson.feature(json, json.objects.bezirke).features;
 
             d3.select("#value").text("Lade Gemeinden");
 
             // Lade Gemeinden
-            d3.json("json/gemeinden.topo.json", function(error, json) {
+            d3.json("topojson/gemeinden.topo.json", function(error, json) {
                   gemeinden = topojson.feature(json, json.objects.gemeinden).features;
 
                   d3.select("#title").text("Wählen Sie einen Kanton");
