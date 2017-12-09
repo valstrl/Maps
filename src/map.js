@@ -133,15 +133,11 @@ function move_up() {
         g.selectAll("#bezirke").remove();
   }*/
   // modif valentine:
-  if (bezirk) {
-    kanton_clicked(kanton); //??
-    bezirk = null;
-        g.selectAll("#gemeinden").remove();
-  }
+
   else if(kanton) {
     start_demo();// ??
     kanton = null;
-        g.selectAll("#bezirke").remove();
+        g.selectAll("#geimenden").remove();
   }
 
     if (!kanton) {
