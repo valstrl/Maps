@@ -203,7 +203,8 @@ function kanton_clicked_gemeinden(d) {
         var gemeinde_bezirk = bezirke.filter(function (bezirk){
           return bezirk.properties.BZNR == gemeinde.properties.BZNR
         });
-        console.log(gemeinde_bezirk)
+        console.log(gemeinde_bezirk[0])
+        console.log(gemeinde_bezirk[1])
 
         //return gemeinde if its bezirk is part of kanton
         return gemeinde_bezirk[0].properties.KTNR == d.properties.KTNR
