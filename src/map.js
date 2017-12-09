@@ -39,11 +39,11 @@ svg.append("rect")
             d3.select("#title").text("Wählen Sie einen Kanton");
                     //d3.select("#value").text("Klicken Sie, um auf eine tiefere Ebene zu gelangen");
         }
-        else if (!bezirk)
+        /*else if (!bezirk)
         {
             d3.select("#title").text("Wählen Sie einen Bezirk");
             //d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
-        }
+        }*/
         else {
             d3.select("#title").text("");
            //d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
@@ -85,9 +85,9 @@ var name;
   if(d.properties.KTNAME) {
     name = d.properties.KTNAME;
   }
-  else if(d.properties.BZNAME) {
+  /*else if(d.properties.BZNAME) {
     name = d.properties.BZNAME;
-  }
+  }*/
   else if(d.properties.GMDNAME) {
     name = d.properties.GMDNAME;
   }
@@ -122,7 +122,7 @@ function set_colordomain(d) {
 }
 
 function move_up() {
-  if (bezirk) {
+  /*if (bezirk) {
     kanton_clicked(kanton);
     bezirk = null;
         g.selectAll("#gemeinden").remove();
@@ -131,17 +131,28 @@ function move_up() {
     start_demo();
     kanton = null;
         g.selectAll("#bezirke").remove();
+  }*/
+  // modif valentine:
+  if (bezirk) {
+    kanton_clicked(kanton); //??
+    bezirk = null;
+        g.selectAll("#gemeinden").remove();
+  }
+  else if(kanton) {
+    start_demo();// ??
+    kanton = null;
+        g.selectAll("#bezirke").remove();
   }
 
     if (!kanton) {
             d3.select("#title").text("Wählen Sie einen Kanton");
                     //d3.select("#value").text("Klicken Sie, um auf eine tiefere Ebene zu gelangen");
         }
-        else if (!bezirk)
+        /*else if (!bezirk)
         {
             d3.select("#title").text("Wählen Sie einen Bezirk");
             //d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
-        }
+        }*/
         else {
             d3.select("#title").text("");
            //d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
@@ -180,22 +191,59 @@ function get_sum_of_entries(all_entries) {
     return entries;
 }
 
-function kanton_clicked(d) {
+function kanton_clicked_gemeinden(d) {
 
-    var xyz = get_xyz(d);
+    var xyz = get_xyz(d); // find center of canton
     kanton = d;
 
+      // find gemeinden contained in kanton d
+      var contained_gemeinden = gemeinden.filter( function(gemeinde) {
+        // for each gemeinde find its bezirk
+        var gemeinde_bezirk = bezirke.filter(function (bezirk){
+          return bezirk.properties.BZNR == gemeinde.properties.BZNR
+        });
+        //return gemeinde if its bezirk is part of kanton
+        return gemeinde_bezirk.properties.KTNR == d.properties.KTNR
+      });
+
+            set_colordomain(contained_gemeinden);
+
+              g.append("g")
+                .attr("id", "gemeinden")
+                .selectAll("path")
+                .data(contained_gemeinden)
+                .enter()
+                .append("path")
+                .attr("id", function(d) { return d.properties.name; })
+                .attr("class", "gemeinde")
+                .attr("d", path.pointRadius(20 / xyz[2]))
+                .attr("fill", get_place_color)
+                .on("mouseover", update_info)
+                .on("mouseout", highlight);
+
+        zoom(xyz);
+        g.selectAll("#kantone").remove();
+}
+
+function kanton_clicked(d) {
+
+    var xyz = get_xyz(d); // find center of canton
+    kanton = d;
+
+      // find bezirk contained in kanton d
       var contained_bezirke = bezirke.filter( function(bezirk) {
         return bezirk.properties.KTNR == d.properties.KTNR;
       });
 
+      // in each of those bezirk find the bezirk in the dataset
         contained_bezirke.forEach(function(d) {
             d.entries = dataset.filter( function(data) {
                 return data.Bezirk == d.properties.BZNAME;
+                  });
+              //number of visitors
+              d.entry = get_sum_of_entries(d.entries);
             });
-        d.entry = get_sum_of_entries(d.entries);
-      });
-
+      // get color in function of the values of visitors
       set_colordomain(contained_bezirke);
 
         g.append("g")
@@ -267,7 +315,7 @@ function start_demo() {
     .attr("id", function(d) { return d.id; })
     .attr("d", path)
     .attr("fill", get_place_color)
-    .on("click", kanton_clicked)
+    .on("click", kanton_clicked_gemeinden)
   .on("mouseover", update_info)
   .on("mouseout", highlight);
 
