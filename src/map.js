@@ -37,16 +37,16 @@ svg.append("rect")
     .on("mouseover", function() {
         if (!kanton) {
             d3.select("#title").text("Wählen Sie einen Kanton");
-                    d3.select("#value").text("Klicken Sie, um auf eine tiefere Ebene zu gelangen");
+                    //d3.select("#value").text("Klicken Sie, um auf eine tiefere Ebene zu gelangen");
         }
         else if (!bezirk)
         {
             d3.select("#title").text("Wählen Sie einen Bezirk");
-            d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
+            //d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
         }
         else {
             d3.select("#title").text("");
-           d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
+           //d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
         }
     });
 
@@ -92,7 +92,7 @@ var name;
     name = d.properties.GMDNAME;
   }
   d3.select("#title").text(name);
-  d3.select("#value").text(value + " Besucher");
+  //d3.select("#value").text(value + " Besucher");
 
 }
 
@@ -135,16 +135,16 @@ function move_up() {
 
     if (!kanton) {
             d3.select("#title").text("Wählen Sie einen Kanton");
-                    d3.select("#value").text("Klicken Sie, um auf eine tiefere Ebene zu gelangen");
+                    //d3.select("#value").text("Klicken Sie, um auf eine tiefere Ebene zu gelangen");
         }
         else if (!bezirk)
         {
             d3.select("#title").text("Wählen Sie einen Bezirk");
-            d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
+            //d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
         }
         else {
             d3.select("#title").text("");
-           d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
+           //d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
         }
 }
 
@@ -289,7 +289,7 @@ d3.csv("csv/data.csv", function(data) {
 
 dataset = data;
 
-        d3.select("#value").text("Lade Kantone");
+        //d3.select("#value").text("Lade Kantone");
 
     d3.json("topojson/kantone.topo.json", function(error, json) {
         kantone = topojson.feature(json, json.objects.kantone).features;
@@ -301,20 +301,20 @@ dataset = data;
                 d.entry = get_sum_of_entries(d.entries);
         });
 
-      d3.select("#value").text("Lade Bezirke");
+      //d3.select("#value").text("Lade Bezirke");
 
         //Lade Bezirke
         d3.json("topojson/bezirke.topo.json", function(error, json) {
             bezirke = topojson.feature(json, json.objects.bezirke).features;
 
-            d3.select("#value").text("Lade Gemeinden");
+            //d3.select("#value").text("Lade Gemeinden");
 
             // Lade Gemeinden
             d3.json("topojson/gemeinden.topo.json", function(error, json) {
                   gemeinden = topojson.feature(json, json.objects.gemeinden).features;
 
                   d3.select("#title").text("Wählen Sie einen Kanton");
-                  d3.select("#value").text("Klicken um zu den Bezirken zu gelangen");
+                  //d3.select("#value").text("Klicken um zu den Bezirken zu gelangen");
 
                   //Starte die Demonstration
                   start_demo();
