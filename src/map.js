@@ -2,8 +2,10 @@ var m_width = $("#map").width(),
     width = 938,
     height = 500,
     kantone, // Alle Kantone der Schweiz
+    bezirke, // Alle Bezirke der Schweiz
     gemeinden, // Alle Gemeinden der Scheiz
     kanton, // Ausgewählter Kanton
+    bezirk, // Ausgewählter Bezitk
     dataset;
 
 //highlight when mouseover
@@ -140,7 +142,7 @@ function move_up() {
 }
 
 function zoom(xyz) {
-g.selectAll(["#kantone", "#gemeinden"])
+g.selectAll(["#kantone",/*"#bezirke"*/, "#gemeinden"])
     .style("stroke-width", 1.0 / xyz[2] + "px");
 
   g.transition()
@@ -337,10 +339,10 @@ dataset = data;
                 d.entry = get_sum_of_entries(d.entries);
         });
 
-      //d3.select("#value").text("Lade Bezirke");
+      d3.select("#value").text("Loading districts");
 
         //Lade Bezirke
-        /*d3.json("topojson/bezirke.topo.json", function(error, json) {
+        d3.json("topojson/bezirke.topo.json", function(error, json) {
             bezirke = topojson.feature(json, json.objects.bezirke).features;*/
 
             d3.select("#value").text("Load municipalities");
@@ -351,11 +353,10 @@ dataset = data;
 
                   d3.select("#title").text("Select a canton");
                   d3.select("#value").text("Click on a canton to zoom on it and see its municipalities");
-
                   //Starte die Demonstration
                   start_demo();
               });
-    //});
+    });
   });
 
 });
