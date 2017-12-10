@@ -200,7 +200,7 @@ function kanton_clicked_gemeinden(d) {
         });
 
         gemeinde_bezirk=gemeinde_bezirk[0];
-        
+
 
         if(gemeinde_bezirk != undefined){
 
@@ -217,8 +217,8 @@ function kanton_clicked_gemeinden(d) {
                 .data(contained_gemeinden)
                 .enter()
                 .append("path")
-                .attr("id", function(d) { return d.properties.name; })
-                .attr("class", "gemeinde")
+                .attr("id", function(d) { return "gemeinden"; })
+                .attr("class", "gemeinden")
                 .attr("d", path.pointRadius(20 / xyz[2]))
                 .attr("fill", get_place_color)
                 .on("mouseover", update_info)
