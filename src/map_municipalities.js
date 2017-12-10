@@ -144,8 +144,6 @@ function get_xyz(d) {
 function start_demo() {
 
   gemeinden.forEach(function(d) {
-    console.log("dataset");
-    console.log(dataset);
                 var munip_data = dataset.filter( function(data) {
                   console.log("data");
                   console.log(data);
@@ -156,7 +154,7 @@ function start_demo() {
 
             console.log("munip_data");
             console.log(munip_data);
-        		d.munip_votes = munip_data.Score;
+        		d.munip_votes = munip_data[0].Score;
             console.log("d with votes");
             console.log(d);
         	});
@@ -197,8 +195,6 @@ $(window).resize(function() {
 d3.csv("csv/SVP_UDC.csv", function(data) {
 
 dataset = data;
-console.log("load dataset");
-console.log(dataset);
             d3.select("#value").text("Load municipalities");
 
             // Lade Gemeinden
