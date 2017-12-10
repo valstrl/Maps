@@ -136,14 +136,14 @@ function set_colordomain(d) {
         }
 }*/
 
-/*function zoom(xyz) {
-g.selectAll(["#kantone", "#gemeinden"])
+function zoom(xyz) {
+g.selectAll([ "#gemeinden"])
     .style("stroke-width", 1.0 / xyz[2] + "px");
 
   g.transition()
     .duration(750)
     .attr("transform", "translate(" + projection.translate() + ")scale(" + xyz[2] + ")translate(-" + xyz[0] + ",-" + xyz[1] + ")")
-    .selectAll(["#kantone", "#gemeinden"])
+    .selectAll([ "#gemeinden"])
     .style("stroke-width", 1.0 / xyz[2] + "px")
     .selectAll(".gemeinde")
     .attr("d", path.pointRadius(20.0 / xyz[2]));
@@ -157,7 +157,7 @@ function get_xyz(d) {
   var x = (bounds[1][0] + bounds[0][0]) / 2;
   var y = (bounds[1][1] + bounds[0][1]) / 2 + (height / z / 6);
   return [x, y, z];
-}*/
+}
 
 function get_sum_of_entries(all_entries) {
 
