@@ -194,19 +194,16 @@ function kanton_clicked_gemeinden(d) {
 
       // find gemeinden contained in kanton d
       var contained_gemeinden = gemeinden.filter( function(gemeinde) {
-        console.log("gemeinde");
-        console.log(gemeinde);
         // for each gemeinde find its bezirk
         var gemeinde_bezirk = bezirke.filter(function (bezirk){
           return bezirk.properties.BZNR == gemeinde.properties.BZNR
         });
-        console.log("[0]");
+
         gemeinde_bezirk=gemeinde_bezirk[0];
-        console.log(gemeinde_bezirk);
+        
 
         if(gemeinde_bezirk != undefined){
-          console.log(gemeinde_bezirk.properties);
-          console.log(gemeinde_bezirk.properties.KTNR);
+
         //return gemeinde if its bezirk is part of kanton
         return gemeinde_bezirk.properties.KTNR == d.properties.KTNR
         }
@@ -348,7 +345,7 @@ dataset = data;
     d3.json("topojson/kantone.topo.json", function(error, json) {
         kantone = topojson.feature(json, json.objects.kantone).features;
 
-        console.log(dataset);
+
       kantone.forEach(function(d) {
           d.entries = dataset.filter( function(data) {
                 return data.Kanton == d.properties.KTNAME;
