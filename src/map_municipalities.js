@@ -149,11 +149,16 @@ function start_demo() {
                 var munip_data = dataset.filter( function(data) {
                   console.log("data");
                   console.log(data);
+                  console.log("d");
+                  console.log(d);
                     return data.Name == d.properties.GMNAME;
                 });
+
             console.log("munip_data");
             console.log(munip_data);
         		d.munip_votes = munip_data.Score;
+            console.log("d with votes");
+            console.log(d);
         	});
 
 
