@@ -39,15 +39,10 @@ svg.append("rect")
     .attr("height", height)
     //.on("click", move_up)
     .on("mouseover", function() {
-        if (!kanton) {
+
             d3.select("#title").text("Select a canton");
             d3.select("#value").text("Click on a canton to zoom on it and see its municipalities");
 
-        }
-        else {
-            d3.select("#title").text("");
-            d3.select("#value").text("Click outside to dezoom");
-        }
     });
 
 //SVP group (cantons or municipalities)
@@ -293,7 +288,7 @@ function bezirk_clicked(d) {
 
 function start_demo() {
 
-  set_colordomain(kantone);
+  set_colordomain(gemeinden);
 
   g.append("g")
     .attr("id", "gemeinden")
