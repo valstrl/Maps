@@ -144,7 +144,11 @@ function get_xyz(d) {
 function start_demo() {
 
   gemeinden.forEach(function(d) {
+    console.log("dataset");
+    console.log(dataset);
                 var munip_data = dataset.filter( function(data) {
+                  console.log("data");
+                  console.log(data);
                     return data.Name == d.properties.GMNAME;
                 });
             console.log("munip_data");
@@ -188,6 +192,8 @@ $(window).resize(function() {
 d3.csv("csv/SVP_UDC.csv", function(data) {
 
 dataset = data;
+console.log("load dataset");
+console.log(dataset);
             d3.select("#value").text("Load municipalities");
 
             // Lade Gemeinden
