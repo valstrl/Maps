@@ -51,13 +51,12 @@ var g = svg.append("g");
 //set color for value
 var get_place_color = function(d) {
     //Get data value
-    if (d.entries) {
-                            var value = d.entry.Visitors;
+    if (d.munip_votes) {
+                            var value = d.munip_votes;
                         }
                         else {
                             var value = 0;
                         }
-
     if (value ) {
             //If value exists…
             return color(value); // color = color scale
@@ -70,8 +69,8 @@ var get_place_color = function(d) {
 //write the value for cantons (when clicked or mouseover) and municipalities (mouseover)
 var update_info = function(d) {
 
-    if (d.entries) {
-        var value = d.entry.Visitors;
+    if (d.munip_votes) {
+        var value = d.munip_votes;
     }
     else {
         var value = 0;
@@ -95,16 +94,16 @@ var name;
 function set_colordomain(d) {
     color.domain([
                     d3.min(d, function(d) {
-                        if (d.entries) {
-                            return d.entry.Visitors;
+                        if (d.munip_votes) {
+                            return d.munip_votes;
                         }
                         else {
                             return 0;
                         }
                     }),
                     d3.max(d, function(d) {
-                        if (d.entries) {
-                            return d.entry.Visitors;
+                        if (d.munip_votes) {
+                            return d.munip_votes;
                         }
                         else {
                             return 0;
@@ -144,6 +143,14 @@ function get_xyz(d) {
 
 function start_demo() {
 
+  gemeinden.forEach(function(d) {
+                d.munip_data = dataset.filter( function(data) {
+                    return data.Name == d.properties.GMNAME;
+                });
+        		d.munip_votes = d.muni_data.Score;
+        	});
+
+
   set_colordomain(gemeinden);
 
   g.append("g")
@@ -176,7 +183,7 @@ $(window).resize(function() {
   svg.attr("height", w * height / width);
 });
 
-d3.csv("csv/data.csv", function(data) {
+d3.csv("SVP_UDC.csv/.csv", function(data) {
 
 dataset = data;
             d3.select("#value").text("Load municipalities");
