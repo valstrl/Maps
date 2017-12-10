@@ -151,7 +151,7 @@ function start_demo() {
                   console.log(data);
                   console.log("d");
                   console.log(d);
-                    return data.Name == d.properties.GMNAME;
+                    return data.Name == d.properties.GMDNAME;
                 });
 
             console.log("munip_data");
