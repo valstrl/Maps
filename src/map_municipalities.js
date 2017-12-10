@@ -144,10 +144,11 @@ function get_xyz(d) {
 function start_demo() {
 
   gemeinden.forEach(function(d) {
-                d.munip_data = dataset.filter( function(data) {
+                var munip_data = dataset.filter( function(data) {
                     return data.Name == d.properties.GMNAME;
                 });
-        		d.munip_votes = d.muni_data.Score;
+            console.log("munip_data");
+        		d.munip_votes = muni_data.Score;
         	});
 
 
