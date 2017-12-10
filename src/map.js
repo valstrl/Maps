@@ -2,27 +2,29 @@ var m_width = $("#map").width(),
     width = 938,
     height = 500,
     kantone, // Alle Kantone der Schweiz
-    bezirke, // Alle Bezirke der Schweiz
     gemeinden, // Alle Gemeinden der Scheiz
     kanton, // Ausgewählter Kanton
-    bezirk, // Ausgewählter Bezitk
     dataset;
 
+//highlight when mouseover
 var highlight = function() {
     d3.select(this)
     .classed("highlighted", false);
 }
 
+//colorscale
 var color = d3.scale.quantize()
 .range(["#74c476","#41ab5d","#238b45"]);
 
+//projection
 var projection = d3.geo.conicConformal()
     .scale(150)
     .translate([width / 2, height / 1.5]);
-
+//path
 var path = d3.geo.path()
     .projection(projection);
 
+//SVG for map
 var svg = d3.select("#map").append("svg")
     .attr("preserveAspectRatio", "xMidYMid")
     .attr("viewBox", "0 0 " + width + " " + height)
@@ -36,22 +38,20 @@ svg.append("rect")
     .on("click", move_up)
     .on("mouseover", function() {
         if (!kanton) {
-            d3.select("#title").text("Wählen Sie einen Kanton");
-                    //d3.select("#value").text("Klicken Sie, um auf eine tiefere Ebene zu gelangen");
+            d3.select("#title").text("Select a canton");
+            d3.select("#value").text("Click on a canton to zoom on it and see its municipalities");
+
         }
-        /*else if (!bezirk)
-        {
-            d3.select("#title").text("Wählen Sie einen Bezirk");
-            //d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
-        }*/
         else {
             d3.select("#title").text("");
-           //d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
+            d3.select("#value").text("Click outside to dezoom");
         }
     });
 
+//SVP group (cantons or municipalities)
 var g = svg.append("g");
 
+//set color for value
 var get_place_color = function(d) {
     //Get data value
     if (d.entries) {
@@ -63,13 +63,14 @@ var get_place_color = function(d) {
 
     if (value ) {
             //If value exists…
-            return color(value);
+            return color(value); // color = color scale
     } else {
             //If value is undefined…
             return "#a1d99b";
     }
 };
 
+//write the value for cantons (when clicked or mouseover) and municipalities (mouseover)
 var update_info = function(d) {
 
     if (d.entries) {
@@ -85,17 +86,15 @@ var name;
   if(d.properties.KTNAME) {
     name = d.properties.KTNAME;
   }
-  /*else if(d.properties.BZNAME) {
-    name = d.properties.BZNAME;
-  }*/
   else if(d.properties.GMDNAME) {
     name = d.properties.GMDNAME;
   }
   d3.select("#title").text(name);
-  d3.select("#value").text(value + " Besucher");
+  d3.select("#value").text(" Value:" +value );
 
 }
 
+//set max and min of value to a color to generate a color domain
 function set_colordomain(d) {
     color.domain([
                     d3.min(d, function(d) {
@@ -122,47 +121,32 @@ function set_colordomain(d) {
 }
 
 function move_up() {
-  /*if (bezirk) {
-    kanton_clicked(kanton);
-    bezirk = null;
-        g.selectAll("#gemeinden").remove();
-  }
-  else if(kanton) {
-    start_demo();
-    kanton = null;
-        g.selectAll("#bezirke").remove();
-  }*/
-  // modif valentine:
+
 
   if(kanton) {
-    start_demo();// ??x
+    start_demo();// ??
     kanton = null;
         g.selectAll("#gemeinden").remove();
   }
 
     if (!kanton) {
-            d3.select("#title").text("Wählen Sie einen Kanton");
-                    //d3.select("#value").text("Klicken Sie, um auf eine tiefere Ebene zu gelangen");
+            d3.select("#title").text("Select a canton");
+            d3.select("#value").text("Click on a canton to zoom on it and see its municipalities");
         }
-        /*else if (!bezirk)
-        {
-            d3.select("#title").text("Wählen Sie einen Bezirk");
-            //d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
-        }*/
-        else {
+    else {
             d3.select("#title").text("");
-           //d3.select("#value").text("Klicken sie auf die weisse Fläche, um auf eine höhere Ebene zu gelangen");
+           d3.select("#value").text("Click outside to dezoom");
         }
 }
 
 function zoom(xyz) {
-g.selectAll(["#kantone", "#bezirke", "#gemeinden"])
+g.selectAll(["#kantone", "#gemeinden"])
     .style("stroke-width", 1.0 / xyz[2] + "px");
 
   g.transition()
     .duration(750)
     .attr("transform", "translate(" + projection.translate() + ")scale(" + xyz[2] + ")translate(-" + xyz[0] + ",-" + xyz[1] + ")")
-    .selectAll(["#kantone", "#bezirke", "#gemeinden"])
+    .selectAll(["#kantone", "#gemeinden"])
     .style("stroke-width", 1.0 / xyz[2] + "px")
     .selectAll(".gemeinde")
     .attr("d", path.pointRadius(20.0 / xyz[2]));
@@ -227,7 +211,7 @@ function kanton_clicked_gemeinden(d) {
         zoom(xyz);
         g.selectAll("#kantone").remove();
 }
-
+/*
 function kanton_clicked(d) {
 
     var xyz = get_xyz(d); // find center of canton
@@ -303,7 +287,7 @@ function bezirk_clicked(d) {
       zoom(xyz);
 
       g.selectAll("#bezirke").remove();
-}
+}*/
 
 function start_demo() {
 
@@ -325,7 +309,7 @@ function start_demo() {
   d3.json("topojson/start.json", function(error, json) {
   start = get_xyz((json.features)[0]);
   zoom(start);
-    g.selectAll("#bezirke", "#gemeinden").remove();
+    g.selectAll( "#gemeinden").remove();
     });
 
 };
@@ -340,7 +324,7 @@ d3.csv("csv/data.csv", function(data) {
 
 dataset = data;
 
-        //d3.select("#value").text("Lade Kantone");
+    d3.select("#value").text("Loading cantons");
 
     d3.json("topojson/kantone.topo.json", function(error, json) {
         kantone = topojson.feature(json, json.objects.kantone).features;
@@ -356,22 +340,22 @@ dataset = data;
       //d3.select("#value").text("Lade Bezirke");
 
         //Lade Bezirke
-        d3.json("topojson/bezirke.topo.json", function(error, json) {
-            bezirke = topojson.feature(json, json.objects.bezirke).features;
+        /*d3.json("topojson/bezirke.topo.json", function(error, json) {
+            bezirke = topojson.feature(json, json.objects.bezirke).features;*/
 
-            //d3.select("#value").text("Lade Gemeinden");
+            d3.select("#value").text("Load municipalities");
 
             // Lade Gemeinden
             d3.json("topojson/gemeinden.topo.json", function(error, json) {
                   gemeinden = topojson.feature(json, json.objects.gemeinden).features;
 
-                  d3.select("#title").text("Wählen Sie einen Kanton");
-                  //d3.select("#value").text("Klicken um zu den Bezirken zu gelangen");
+                  d3.select("#title").text("Select a canton");
+                  d3.select("#value").text("Click on a canton to zoom on it and see its municipalities");
 
                   //Starte die Demonstration
                   start_demo();
               });
-    });
+    //});
   });
 
 });
