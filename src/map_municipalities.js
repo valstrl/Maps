@@ -145,18 +145,13 @@ function start_demo() {
 
   gemeinden.forEach(function(d) {
                 var munip_data = dataset.filter( function(data) {
-                  console.log("data");
-                  console.log(data);
-                  console.log("d");
-                  console.log(d);
+
                     return data.Name == d.properties.GMDNAME;
                 });
 
-            console.log("munip_data");
-            console.log(munip_data);
+
         		d.munip_votes = munip_data[0].Score;
-            console.log("d with votes");
-            console.log(d);
+
         	});
 
 
