@@ -183,7 +183,7 @@ $(window).resize(function() {
   svg.attr("height", w * height / width);
 });
 
-d3.csv("SVP_UDC.csv/.csv", function(data) {
+d3.csv("csv/SVP_UDC.csv", function(data) {
 
 dataset = data;
             d3.select("#value").text("Load municipalities");
