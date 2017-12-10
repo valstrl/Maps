@@ -148,7 +148,8 @@ function start_demo() {
                     return data.Name == d.properties.GMNAME;
                 });
             console.log("munip_data");
-        		d.munip_votes = muni_data.Score;
+            console.log(munip_data);
+        		d.munip_votes = munip_data.Score;
         	});
 
 
