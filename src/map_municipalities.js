@@ -37,7 +37,7 @@ svg.append("rect")
     .attr("class", "background")
     .attr("width", width)
     .attr("height", height)
-    .on("click", move_up)
+    //.on("click", move_up)
     .on("mouseover", function() {
         if (!kanton) {
             d3.select("#title").text("Select a canton");
