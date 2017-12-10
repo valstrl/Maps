@@ -348,6 +348,7 @@ dataset = data;
     d3.json("topojson/kantone.topo.json", function(error, json) {
         kantone = topojson.feature(json, json.objects.kantone).features;
 
+        console.log(dataset);
       kantone.forEach(function(d) {
           d.entries = dataset.filter( function(data) {
                 return data.Kanton == d.properties.KTNAME;
