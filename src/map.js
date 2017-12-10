@@ -135,9 +135,9 @@ function move_up() {
   // modif valentine:
 
   if(kanton) {
-    start_demo();// ??
+    start_demo();// ??x
     kanton = null;
-        g.selectAll("#geimenden").remove();
+        g.selectAll("#gemeinden").remove();
   }
 
     if (!kanton) {
@@ -217,8 +217,8 @@ function kanton_clicked_gemeinden(d) {
                 .data(contained_gemeinden)
                 .enter()
                 .append("path")
-                .attr("id", function(d) { return "gemeinden"; })
-                .attr("class", "gemeinden")
+                .attr("id", function(d) { return "gemeinde"; })
+                .attr("class", "gemeinde")
                 .attr("d", path.pointRadius(20 / xyz[2]))
                 .attr("fill", get_place_color)
                 .on("mouseover", update_info)
